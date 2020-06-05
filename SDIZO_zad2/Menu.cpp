@@ -2,10 +2,8 @@
 #include <iostream>
 #include <conio.h>
 #include <fstream>
-#include "Array.h"
 #include "List.h"
 #include "BinaryHeap.h"
-#include "BST.h"
 #include "Matrix.h"
 #include "MatrixList.h"
 
