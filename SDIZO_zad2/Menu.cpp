@@ -33,6 +33,7 @@ std::string Menu::nazwa(int page)
 		break;
 	}
 }
+//funkcja ³aduje graf nieskierowany z pliku
 void Menu::loadMST(std::string name)
 {
 	size_t size;
@@ -116,6 +117,7 @@ void Menu::loadMST(std::string name)
 	else std::cout << "Dostep do pliku zostal zabroniony!" << std::endl;
 	system("pause");
 }
+//funkcja ³aduje graf skierowany z pliku
 void Menu::loadPth(std::string name)
 {
 	size_t size;
@@ -143,7 +145,7 @@ void Menu::loadPth(std::string name)
 			std::cout << "B³ad odczytu: std::exception" << '\n';
 		}
 		int i = 0;
-		if ((size * (size - 1)) / 2 >= number)
+		if ((size * (size - 1)) >= number)
 		{
 			this->matrixPth->init(size);
 			this->listPth->init(size);
@@ -191,12 +193,12 @@ void Menu::loadPth(std::string name)
 			this->listPth->erase();
 			this->matrixPth->erase();
 			std::cout << "Blad odczytu: Rozmiar tablicy wiekszy niz ilosc danych" << '\n';
-
 		}
 	}
 	else std::cout << "Dostep do pliku zostal zabroniony!" << std::endl;
 	system("pause");
 }
+//funkcja tworzy losowy graf nieskierowany o podanych parametrach
 void Menu::randomMST(size_t size, int prop, int max)
 {
 	this->matrixMST->init(size);
@@ -209,9 +211,9 @@ void Menu::randomMST(size_t size, int prop, int max)
 	this->listMST->push(k, 0, 1);
 	this->matrixMST->push(k, 1, 0);
 	this->listMST->push(k, 1, 0);
-	list->pushBack(list->makeNode(0, 1));
+	list->pushBack(list->makeNode(0, 1)); //utworzenie pierwszej krawêdzi
 	list->pushBack(list->makeNode(1, 0));
-		for (size_t i = 2;i < (size);i++)
+		for (size_t i = 2;i < (size);i++) //utworzenie losowego drzewa rozpinaj¹cego
 		{
 			size_t j = rand() % i;
 			k = rand() % max + 1;
@@ -225,7 +227,7 @@ void Menu::randomMST(size_t size, int prop, int max)
 		List* list2 = new List();
 		for (int i = 0;i < size; i++)
 		{
-			for (int j = size-1;j>i; j--)
+			for (int j = size-1;j>i; j--) //utworzenie listy wszystkich mo¿liwych krawêdzi
 			{
 				if (i != j)
 				{
@@ -235,14 +237,14 @@ void Menu::randomMST(size_t size, int prop, int max)
 		}
 		while (!list->isEmpty())
 		{
-			list2->popNumber(list->returnFNode());
+			list2->popNumber(list->returnFNode()); //usuniêcie krawêdzi znajduj¹cych siê ju¿ w grafie
 			list->popFront();
 		}
 		delete list;
 		size_t i = 0;
 		while (i < maxNumber)
 		{
-			if (rand() % 100 >=0)
+			if (rand() % 100 >=0) //losowanie czy dana krawêdz ma zostaæ dodana do grafu
 			{
 				int nodeTo=list2->returnFNode()->nodeTo;
 				int nodeFrom=list2->returnFNode()->value;
@@ -262,6 +264,7 @@ void Menu::randomMST(size_t size, int prop, int max)
 		}
 		delete list2;
 }
+//funkcja tworzy losowy graf skierowany o podanych parametrach
 void Menu::randomPth(size_t size, int prop, int max)
 {
 	this->matrixPth->init(size);
@@ -272,8 +275,8 @@ void Menu::randomPth(size_t size, int prop, int max)
 	int k = rand() % max + 1;
 	this->matrixPth->push(k, 0, 1);
 	this->listPth->push(k, 0, 1);
-	list->pushBack(list->makeNode(0, 1));
-	for (size_t i = 2;i < (size);i++)
+	list->pushBack(list->makeNode(0, 1)); //utworzenie pierwszej krawêdzi
+	for (size_t i = 2;i < (size);i++) //utworzenie losowego drzewa rozpinaj¹cego
 	{
 		size_t j = rand() % i;
 		k = rand() % max + 1;
@@ -284,7 +287,7 @@ void Menu::randomPth(size_t size, int prop, int max)
 	List* list2 = new List();
 	for (int i = 0;i < size; i++)
 	{
-		for (int j = 0;j <size; j++)
+		for (int j = 0;j <size; j++)//utworzenie listy wszystkich mo¿liwych krawêdzi
 		{
 			if (i != j)
 			{
@@ -294,14 +297,14 @@ void Menu::randomPth(size_t size, int prop, int max)
 	}
 	while (!list->isEmpty())
 	{
-		list2->popNumber(list->returnFNode());
+		list2->popNumber(list->returnFNode()); //usuniêcie krawêdzi znajduj¹cych siê ju¿ w grafie
 		list->popFront();
 	}
 	delete list;
 	size_t i = 0;
 	while (i < maxNumber)
 	{
-		if (rand() % 100 >= 0)
+		if (rand() % 100 >= 0) //losowanie czy dana krawêdz ma zostaæ dodana do grafu
 		{
 			int nodeTo = list2->returnFNode()->nodeTo;
 			int nodeFrom = list2->returnFNode()->value;
@@ -337,8 +340,8 @@ void Menu::display()
 	std::cout << "==========CZERWIEC 2020===========" << std::endl;
 	std::cout << "Sterowanie: a-lewo d-prawo w-gora s-dol Wyjscie-Esc" << std::endl;
 	std::cout << "Wszystkie operacje sa wykonywane automatycznie dla macierzy i listy" << std::endl;
-	std::cout << "Primm i Kruskal wspó³dziela liste i macierz wierzcholkow" << std::endl;
-	std::cout << "Dijkstra i BellmanFord wspó³dziela liste i macierz wierzcholkow" << std::endl;
+	std::cout << "Primm i Kruskal wspoldziela liste i macierz wierzcholkow" << std::endl;
+	std::cout << "Dijkstra i BellmanFord wspoldziela liste i macierz wierzcholkow" << std::endl;
 	std::cout << "" << std::endl;
 	std::cout << "<" << nazwa(page)<< ">" << std::endl;
 
@@ -774,5 +777,9 @@ Menu::Menu()
 
 Menu::~Menu()
 {
-
+	delete this->listPth;
+	delete this->listMST;
+	delete this->matrixPth;
+	delete this->matrixMST;
+	delete this->timer;
 }

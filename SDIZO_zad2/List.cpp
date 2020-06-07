@@ -36,6 +36,7 @@ void List::random(int size)
 		pushBack(rand());
 	}*/
 }
+
 //Za³adowanie listy z pliku
 void List::load(std::string name)
 {
@@ -275,6 +276,7 @@ bool List::search(int value, int nodeTo)
 	}
 	return false;
 }
+//utworzenie Node
 Node* List::makeNode(int nodeTo, int value)
 {
 	Node* node=new Node;
@@ -282,6 +284,7 @@ Node* List::makeNode(int nodeTo, int value)
 	node->value = value;
 	return node;
 }
+//sprawdzenie czy lista jest pusta
 bool List::isEmpty()
 {
 	if (this->size == 0)
@@ -293,6 +296,7 @@ bool List::isEmpty()
 		return false;
 	}
 }
+//zwraca pierwszy node w liœcie
 Node* List::returnFNode()
 {
 	if (this->head != nullptr)
@@ -301,6 +305,7 @@ Node* List::returnFNode()
 	}
 	return nullptr;
 }
+//zwraca node na podanej pozycji w liscie
 Node* List::returnNode(int i)
 {
 	ListElem* node=this->head;
@@ -314,6 +319,7 @@ Node* List::returnNode(int i)
 	}
 	return 0;
 }
+//zwraca pierwszy element listy
 ListElem* List::returnHead()
 {
 	return this->head;

@@ -109,6 +109,7 @@ void BinaryHeap::push(int weight,int edgeTo,int edgeFrom)
 		i = this->parentIndex(i);
 	}
 }
+//dodanie krawêdzi do kopca
 void BinaryHeap::push(Edge* edge)
 {
 	int i = this->size;
@@ -122,7 +123,7 @@ void BinaryHeap::push(Edge* edge)
 		i = this->parentIndex(i);
 	}
 }
-//usuwanie podanego numeru z kopca
+//usuwanie wybranej krawedzi z kopca
 void BinaryHeap::pop(int number,int edgeTo,int edgeFrom)
 {
 	size_t index=0;
@@ -139,6 +140,7 @@ void BinaryHeap::pop(int number,int edgeTo,int edgeFrom)
 	fixUp(index);
 	fixDown(index);
 }
+//usuniecie wybranej krawedzi
 void BinaryHeap::pop(Edge* edge)
 {
 	size_t index = 0;
@@ -155,6 +157,7 @@ void BinaryHeap::pop(Edge* edge)
 	fixUp(index);
 	fixDown(index);
 }
+//usuniêcie wartosci z poczatku kopca
 void BinaryHeap::popFront()
 {
 	this->tab[0] = this->tab[this->size - 1];
@@ -168,10 +171,12 @@ void BinaryHeap::add(int weight,int edgeTo)
 	this->tab[size]->edgeTo = edgeTo;
 	size++;
 }
+//funkcja zwraca krawêdz o podany indeksie
 Edge* BinaryHeap::returnEdge(int index)
 {
 	return tab[index];
 }
+//funkcja zwaraca krawedz o podanym edgeTo
 Edge* BinaryHeap::returnEdgeTo(int edgeTo)
 {
 	for (int i = 0;i < this->size;i++)
@@ -184,6 +189,7 @@ Edge* BinaryHeap::returnEdgeTo(int edgeTo)
 	return tab[0];
 
 }
+//funkcja zwaraca krawedz o podanym edgeFrom
 Edge* BinaryHeap::returnEdgeFrom(int edgeFrom)
 {
 	for (int i = 0;i < this->size;i++)
@@ -247,7 +253,7 @@ void BinaryHeap::displayTable()
 		std::cout << this->tab[i]->weight << " " << this->tab[i]->edgeFrom << " "<< this->tab[i]->edgeTo<< "\n";
 	}
 }
-
+//funkcja naprawiaj¹ca kopiec metod¹ floyda
 void BinaryHeap::floydFix()
 {
 	for (size_t i = this->size / 2; i > 0; i--) 
